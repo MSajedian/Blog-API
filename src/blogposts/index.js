@@ -25,7 +25,7 @@ blogpostsRouter.post("/", blogpostValidation, (req, res, next) => {
     if (!errors.isEmpty()) {
       next(createError(400, { errorList: errors }))
     } else {
-      const newBlogpost = { ...req.body, createdAt: new Date(), _id: uniqid() }
+      const newBlogpost = { ...req.body, createdAt: new Date(), _id: uniqid(),"author": { "name": "AUTHOR AVATAR NAME", "avatar":"AUTHOR AVATAR LINK" } }
       const blogposts = JSON.parse(fs.readFileSync(blogpostJSONPath).toString())
       blogposts.push(newBlogpost)
       fs.writeFileSync(blogpostJSONPath, JSON.stringify(blogposts))
