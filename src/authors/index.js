@@ -1,3 +1,13 @@
+/*
+****************** Authors CRUD ********************
+1. CREATE → POST http://localhost:3001/authors (+ body)
+2. READ → GET http://localhost:3001/authors (+ optional query parameters)
+3. READ → GET http://localhost:3001/authors/:id
+4. UPDATE → PUT http://localhost:3001/authors/:id (+ body)
+5. DELETE → DELETE http://localhost:3001/authors/:id
+
+*/
+
 import express from "express"
 import fs from "fs"
 import { fileURLToPath } from "url"
