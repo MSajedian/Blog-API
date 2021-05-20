@@ -1,1 +1,20 @@
-[{"name":"John","surname":"Doe","email":"JohnDoe@gmail.com","dateOfBirth":"1990-05-19","avatar":"https://ui-avatars.com/api/?name=John+Doe","_id":"1qhs9ukkou4hjyt"},{"name":"Alexander","surname":"Graham Bell","email":"GrahamBell@gmail.com","dateOfBirth":"1847-03-03","avatar":"https://ui-avatars.com/api/?name=Alexander+GrahamBell","_id":"1qhsa18kou5t3qo"}]
+[
+  {
+    "name": "John2",
+    "surname": "Doe2",
+    "email": "JohnDoe2@gmail.com",
+    "dateOfBirth": "1991-01-11",
+    "avatar": "https://ui-avatars.com/api/?name=John2+Doe2",
+    "_id": "1qhsa18kou5t3qo",
+    "authorProfilePicture": "http://127.0.0.1/authors/1qhsa18kou5t3qo/1qhsa18kou5t3qo.jpg"
+  },
+  {
+    "name": "John",
+    "surname": "Doe",
+    "email": "JohnDoe@gmail.com",
+    "dateOfBirth": "1990-05-19",
+    "avatar": "https://ui-avatars.com/api/?name=John+Doe",
+    "_id": "1qhs9ukkou4hjyt",
+    "authorProfilePicture": "http://127.0.0.1/authors/1qhs9ukkou4hjyt/1qhs9ukkou4hjyt.jpg"
+  }
+]

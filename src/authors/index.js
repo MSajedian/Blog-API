@@ -35,7 +35,6 @@ authorsRouter.post("/", (req, res) => {
   else {
     res.status(201).send("duplicate email")
   }
-
 })
 
 authorsRouter.get("/", (req, res) => {
