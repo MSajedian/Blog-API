@@ -21,9 +21,7 @@ const loggerMiddleware = (req, res, next) => {
 }
 
 // ******** CORS ************
-
 const whitelist = [process.env.FRONTEND_DEV_URL, process.env.FRONTEND_CLOUD_URL]
-
 const corsOptions = {
     origin: function (origin, next) {
         console.log("ORIGIN ", origin)

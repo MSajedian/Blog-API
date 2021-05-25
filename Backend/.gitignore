@@ -13,6 +13,7 @@
 
 # dotnev environment variables file
 .env
+.env.test
 
 # misc
 .DS_Store

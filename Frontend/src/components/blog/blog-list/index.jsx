@@ -12,7 +12,11 @@ export default class BlogList extends Component {
     // const apiUrl = `http://127.0.0.1:3001`
     console.log("url", `${apiUrl}/blogPosts`);
     // const apiUrl = process.env.REACT_APP_API_URL
-    const resp = await fetch(`${apiUrl}/blogPosts`)
+    const resp = await fetch(`${apiUrl}/blogPosts`,{
+      headers:{
+        Origin:'http://localhost:3000'
+      }
+    })
     const posts = await resp.json()
     this.setState({ posts: posts })
   }
