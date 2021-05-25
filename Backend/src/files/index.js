@@ -2,15 +2,11 @@ import express from "express"
 import { writeAuthorsPictures, readAuthorsPictures } from "../lib/fs-tools.js"
 import multer from "multer"
 import { fileURLToPath } from "url"
-import { dirname, join } from "path"
+import { extname, dirname, join } from "path"
 import fs from "fs-extra"
 
 // import { pipeline } from "stream"
 // import zlib from "zlib"
-
-function getFileExtension(filename) {
-  return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
-}
 
 const authorsFolderPath = join(dirname(fileURLToPath(import.meta.url)), "../../public/img/authors")
 const authorJSONPath = join(dirname(fileURLToPath(import.meta.url)), "../authors/authors.json")
@@ -19,8 +15,7 @@ const filesRouter = express.Router()
 
 filesRouter.post("/:id/uploadAvatar", multer().single("idOfTheAuthor"), async (req, res, next) => {
   try {
-    const ExtensionOfFile = getFileExtension(req.file.originalname)
-    await writeAuthorsPictures(`${req.params.id}.${ExtensionOfFile}`, req.file.buffer)
+    await writeAuthorsPictures(`${req.params.id}${extname(req.file.originalname)}`, req.file.buffer)
     const authors = JSON.parse(fs.readFileSync(authorJSONPath).toString())
     const remainingAuthors = authors.filter(author => author._id !== req.params.id)
     let updatedAuthor = authors.filter(author => author._id === req.params.id)[0]
