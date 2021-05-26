@@ -41,11 +41,15 @@ blogpostsRouter.get("/", (req, res, next) => {
 
 blogpostsRouter.get("/pdfDownload/:id", async (req, res, next) => {
   try {
-    const source = generatePDFStream(req.params.id)
-    const destination = res
-    res.setHeader("Content-Disposition", "attachment; filename=export.pdf")
-    // res.setHeader('Content-Disposition: attachment;filename="export.pdf"')
-    pipeline(source, destination, err => next(err))
+    const pdfStream = await generatePDFStream(req.params.id);
+    res.setHeader("Content-Type", "application/pdf");
+    pdfStream.pipe(res);
+    pdfStream.end();
+
+    // const source = generatePDFStream(req.params.id)
+    // const destination = res
+    // res.setHeader("Content-Disposition", "attachment; filename=export.pdf")
+    // pipeline(source, destination, err => next(err))
   } catch (error) {
     next(error)
   }

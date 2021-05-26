@@ -13,6 +13,7 @@
   "author": "Mohammadamin Sajedian",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-list-endpoints": "^5.0.0",
@@ -21,6 +22,7 @@
     "http-errors": "^1.8.0",
     "multer": "^1.4.2",
     "pdfmake": "^0.1.71",
+    "striptags": "^3.1.1",
     "uniqid": "^5.3.0"
   },
   "devDependencies": {
