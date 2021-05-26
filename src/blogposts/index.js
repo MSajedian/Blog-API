@@ -1,20 +1,13 @@
-/*
-****************** Blogposts CRUD ********************
-1. CREATE → POST http://localhost:3001/blogposts (+ body)
-2. READ → GET http://localhost:3001/blogposts (+ optional query parameters)
-3. READ → GET http://localhost:3001/blogposts/:id
-4. UPDATE → PUT http://localhost:3001/blogposts/:id (+ body)
-5. DELETE → DELETE http://localhost:3001/blogposts/:id
-*/
-
-import express from "express" 
-import fs from "fs" 
-import { fileURLToPath } from "url" 
-import { dirname, join } from "path" 
+import express from "express"
+import fs from "fs"
+import { fileURLToPath } from "url"
+import { dirname, join } from "path"
 import uniqid from "uniqid"
 import { validationResult } from "express-validator"
 import createError from "http-errors"
 import { blogpostValidation } from "./validation.js"
+import { pipeline } from "stream"
+import { generatePDFStream } from "../lib/pdf.js"
 
 const blogpostsRouter = express.Router()
 const blogpostJSONPath = join(dirname(fileURLToPath(import.meta.url)), "blogposts.json")
@@ -25,7 +18,7 @@ blogpostsRouter.post("/", blogpostValidation, (req, res, next) => {
     if (!errors.isEmpty()) {
       next(createError(400, { errorList: errors }))
     } else {
-      const newBlogpost = { ...req.body, createdAt: new Date(), _id: uniqid(),"author": { "name": "AUTHOR AVATAR NAME", "avatar":"AUTHOR AVATAR LINK" } }
+      const newBlogpost = { ...req.body, createdAt: new Date(), _id: uniqid(), "author": { "name": "AUTHOR AVATAR NAME", "avatar": "AUTHOR AVATAR LINK" } }
       const blogposts = JSON.parse(fs.readFileSync(blogpostJSONPath).toString())
       blogposts.push(newBlogpost)
       fs.writeFileSync(blogpostJSONPath, JSON.stringify(blogposts))
@@ -34,7 +27,7 @@ blogpostsRouter.post("/", blogpostValidation, (req, res, next) => {
   } catch (error) {
     next(error)
   }
-}) 
+})
 
 blogpostsRouter.get("/", (req, res, next) => {
   try {
@@ -44,6 +37,20 @@ blogpostsRouter.get("/", (req, res, next) => {
     next(error)
   }
 })
+
+
+blogpostsRouter.get("/pdfDownload", async (req, res, next) => {
+  try {
+    const source = generatePDFStream()
+    const destination = res
+    res.setHeader("Content-Disposition", "attachment; filename=export.pdf")
+    // res.setHeader('Content-Disposition: attachment;filename="export.pdf"')
+    pipeline(source, destination, err => next(err))
+  } catch (error) {
+    next(error)
+  }
+})
+
 
 blogpostsRouter.get("/:id", (req, res, next) => {
   try {
