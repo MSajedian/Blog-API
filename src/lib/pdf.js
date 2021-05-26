@@ -1,6 +1,10 @@
 import PdfPrinter from "pdfmake"
+import { fileURLToPath } from "url"
+import { dirname, join } from "path"
+import fs from "fs"
 
-export const generatePDFStream = data => {
+
+export const generatePDFStream = id => {
   const fonts = {
     Roboto: {
       normal: "Helvetica",
@@ -12,9 +16,12 @@ export const generatePDFStream = data => {
 
   const printer = new PdfPrinter(fonts)
 
-  const docDefinition = {
-    content: ["First paragraph", "Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines"],
-  }
+  const blogpostJSONPath = join(dirname(fileURLToPath(import.meta.url)), "../blogposts/blogposts.json")
+  const blogposts = JSON.parse(fs.readFileSync(blogpostJSONPath).toString())
+  const blogpost = blogposts.find(p => p._id.toString() === id.toString())
+
+  const docDefinition = { content: [blogpost.category, blogpost.title, blogpost.content] }
+
 
   const options = {
     // ...
