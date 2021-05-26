@@ -6,7 +6,7 @@ import uniqid from "uniqid"
 import { validationResult } from "express-validator"
 import createError from "http-errors"
 import { blogpostValidation } from "./validation.js"
-import { pipeline } from "stream"
+// import { pipeline } from "stream"
 import { generatePDFStream } from "../lib/pdf.js"
 
 const blogpostsRouter = express.Router()
