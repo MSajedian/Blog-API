@@ -18,7 +18,7 @@ export const generatePDFStream = async (id) => {
 
   const printer = new PdfPrinter(fonts)
 
-  const blogPostJSONPath = join(dirname(fileURLToPath(import.meta.url)), "../blogPosts/blogPosts.json")
+  const blogPostJSONPath = join(dirname(fileURLToPath(import.meta.url)), "../blogposts/blogposts.json")
   const blogPosts = JSON.parse(fs.readFileSync(blogPostJSONPath).toString())
   const blogPost = blogPosts.find(p => p._id.toString() === id.toString())
 
